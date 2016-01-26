@@ -1,1 +1,1 @@
-start cmd /k "cd D:\Work\portfolio && gulp"
+start cmd /k "cd D:\Work\weather && gulp"
