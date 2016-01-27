@@ -14,6 +14,10 @@ body {
     width: 100%;
 }
 
+* {
+    outline: none;
+}
+
 .search {
     left: 50%;
     margin-left: -132px;
