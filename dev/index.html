@@ -1,16 +1,26 @@
-<html>
-    <head>
-        <title>weather</title>
-        <link rel="stylesheet" href="css/style.css">
-        <script type="text/javascript" src="js/scripts.js"></script>
-    </head>
-    <body>
-        <div class="content">
-            <div class="search">
-                <form action="submit">
-                    <input class="input" type="text"><input class="button" type="button" value="Add">
-                </form>
-            </div>
+<html ng-app="weatherApp">
+
+<head>
+    <title>weather</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+</head>
+
+<body>
+    <div class="content" ng-controller="weatherController">
+        <div class="search">
+            <form class="form" ng-submit="getWeather()">
+                <input class="input" type="text" ng-model="locationInput">
+                <input class="button" type="button" value="Add" ng-click="getWeather()">
+            </form>
         </div>
-    </body>
+        <div class="card">
+            <div class="name">{{ locationName }}</div>
+            <div class="temperature">{{ locationTemperature }}</div>
+            <div class="description">{{ locationDescription }}</div>
+        </div>
+    </div>
+</body>
+
 </html>

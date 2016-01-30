@@ -19,9 +19,7 @@ body {
 }
 
 .search {
-    left: 50%;
-    margin-left: -132px;
-    position: absolute;
+    margin: 40px auto;
     top: 30%;
     width: 300px;
     .input {
@@ -29,28 +27,41 @@ body {
         border-top-left-radius: $border-radius;
         border: none;
         box-sizing: border-box;
+        float: left;
         max-width: 220px;
         padding: 16px;
         position: relative;
         width: 100%;
-        z-index: 2;
     }
     .button {
+        background-color: #E0E0E0;
         border-bottom-right-radius: $border-radius;
         border-top-right-radius: $border-radius;
         border: none;
         box-sizing: border-box;
         color: #828282;
+        float: left;
         font-weight: 600;
         padding: 16px;
         position: relative;
         text-transform: uppercase;
         width: 80px;
-        z-index: 1;
-        background-color: #E0E0E0;
         &:hover {
             cursor: pointer;
             background-color: #C7C7C7;
         }
     }
+    .form {
+        overflow: hidden;
+        margin: 0;
+    }
+}
+
+.card {
+    background-color: #FFFFFF;
+    float: left;
+    width: 240px;
+    margin: 0 40px;
+    border-radius: 8px;
+    padding: 20px;
 }
