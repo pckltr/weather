@@ -24,7 +24,8 @@ var distScripts = dist + "js/";
 var distStyle = dist + "css/";
 
 // Browser-sync server
-gulp.task("serve", ["fonts", "html", "images", "lint", "sass", "scripts"], function() {
+gulp.task("serve", ["fonts", "html", "images", "sass", "scripts"], function() {
+// gulp.task("serve", ["fonts", "html", "images", "lint", "sass", "scripts"], function() {
 
     browserSync.init({
         server: dist
@@ -33,7 +34,8 @@ gulp.task("serve", ["fonts", "html", "images", "lint", "sass", "scripts"], funct
     gulp.watch(devFonts, ["fonts"]);
     gulp.watch(devHTML, ["html"]);
     gulp.watch(devImages, ["images"]);
-    gulp.watch(devScripts, ["lint", "scripts"]);
+    gulp.watch(devScripts, ["scripts"]);
+    // gulp.watch(devScripts, ["lint", "scripts"]);
     gulp.watch(devStyle, ["sass"]);
 
 });
@@ -83,7 +85,7 @@ gulp.task("sass", function() {
 // Concatenate & Minify JS
 gulp.task("scripts", function() {
     return gulp.src(devScripts)
-        .pipe(concat("scripts.js"))
+        // .pipe(concat("app.js"))
         // .pipe(uglify()
         //     .on("error", handleError))
         .pipe(gulp.dest(distScripts))
