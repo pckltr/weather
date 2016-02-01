@@ -1,7 +1,7 @@
+@import 'fonts';
 $border-radius: 8px;
-
 body {
-    background: radial-gradient(#53BDEC, #149CDD);
+    background: radial-gradient(#ECECEC, #ABABAB);
     font-size: 16px;
     margin: 0;
 }
@@ -15,6 +15,7 @@ body {
 }
 
 * {
+    font-family: 'open_sans', sans-serif;
     outline: none;
 }
 
@@ -29,23 +30,27 @@ body {
         box-sizing: border-box;
         float: left;
         max-width: 220px;
-        padding: 16px;
+        padding: 0 16px;
         position: relative;
         width: 100%;
+        font-size: 16px;
+        line-height: 50px;
     }
     .button {
-        background-color: #E0E0E0;
+        background: radial-gradient(#53BDEC, #149CDD);
         border-bottom-right-radius: $border-radius;
         border-top-right-radius: $border-radius;
         border: none;
         box-sizing: border-box;
-        color: #828282;
+        color: #F1F1F1;
         float: left;
         font-weight: 600;
-        padding: 16px;
+        padding: 0 16px;
         position: relative;
         text-transform: uppercase;
         width: 80px;
+        font-size: 16px;
+        line-height: 50px;
         &:hover {
             cursor: pointer;
             background-color: #C7C7C7;
@@ -62,6 +67,56 @@ body {
     float: left;
     width: 240px;
     margin: 0 40px;
-    border-radius: 8px;
-    padding: 20px;
+    border-radius: $border-radius;
+    .image {
+        height: 200px;
+        border-bottom: 1px solid #CCCCCC;
+    }
+    .info {
+        padding: 20px;
+    }
+    .temperature {
+        border-radius: 50%;
+        background: #FFFFFF;
+        text-align: center;
+        font-size: 40px;
+        margin-top: -72px;
+        border: 1px solid #CCCCCC;
+        height: 100px;
+        width: 100px;
+        line-height: 100px;
+        margin: -72px auto 20px auto;
+        color: #8A8A8A;
+        position: relative;
+        &:after {
+            content: '°';
+            position: absolute;
+            font-size: 30px;
+            top: -4px;
+            color: #B7B7B7;
+        }
+    }
+    .name {
+        font-size: 20px;
+    }
+    .description {
+        font-size: 15px;
+    }
+    .close {
+        font-size: 20px;
+        border-radius: 50%;
+        border: 1px solid #FFA7A7;
+        color: #FFA7A7;
+        height: 21px;
+        line-height: 21px;
+        width: 21px;
+        margin: 40px auto 0 auto;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.5s;
+        &:hover {
+            border: 1px solid #F00;
+            color: #F00;
+        }
+    }
 }

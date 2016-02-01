@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <div class="content" ng-controller="weatherController">
+    <div class="content" ng-controller="weatherController" ng-cloak>
         <div class="search">
             <form class="form" ng-submit="getWeather()">
                 <input class="input" type="text" ng-model="locationInput">
@@ -16,9 +16,13 @@
             </form>
         </div>
         <div class="card">
-            <div class="name">{{ locationName }}</div>
-            <div class="temperature">{{ locationTemperature }}</div>
-            <div class="description">{{ locationDescription }}</div>
+            <div class="image"></div>
+            <div class="info">
+                <div class="temperature">{{ locationTemperature }}</div>
+                <div class="name">{{ locationName }}</div>
+                <div class="description">{{ locationDescription }}</div>
+                <div class="close">×</div>
+            </div>
         </div>
     </div>
 </body>

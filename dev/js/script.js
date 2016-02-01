@@ -17,7 +17,7 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
                 $scope.locationInput = '';
                 $scope.locationResponse = angular.fromJson(result);
                 $scope.locationName = $scope.locationResponse.name;
-                $scope.locationTemperature = $scope.locationResponse.main.temp;
+                $scope.locationTemperature = $filter('number')($scope.locationResponse.main.temp - 273.15, 0);
                 $scope.locationDescription = $scope.locationResponse.weather[0].description;
 
             })
