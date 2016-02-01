@@ -16,21 +16,24 @@ var devHTML = dev + "*.html";
 var devImages = dev + "img/*";
 var devScripts = dev + "js/*";
 var devStyle = dev + "scss/*";
+var devDirectives = dev + "directives/*";
 var dist = "dist/";
 var distFonts = dist + "fonts/";
 var distHTML = dist;
 var distImages = dist + "img/";
 var distScripts = dist + "js/";
 var distStyle = dist + "css/";
+var distDirectives = dist + "directives/";
 
 // Browser-sync server
-gulp.task("serve", ["fonts", "html", "images", "sass", "scripts"], function() {
+gulp.task("serve", ["directives", "fonts", "html", "images", "sass", "scripts"], function() {
 // gulp.task("serve", ["fonts", "html", "images", "lint", "sass", "scripts"], function() {
 
     browserSync.init({
         server: dist
     });
 
+    gulp.watch(devDirectives, ["directives"]);
     gulp.watch(devFonts, ["fonts"]);
     gulp.watch(devHTML, ["html"]);
     gulp.watch(devImages, ["images"]);
@@ -44,6 +47,13 @@ function handleError(err) {
   console.log(err.toString());
   this.emit('end');
 }
+
+// Copy directives
+gulp.task("directives", function() {
+    return gulp.src(devDirectives)
+        .pipe(gulp.dest(distDirectives))
+        .pipe(browserSync.stream());
+});
 
 // Copy fonts
 gulp.task("fonts", function() {

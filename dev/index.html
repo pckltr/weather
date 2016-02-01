@@ -15,14 +15,8 @@
                 <input class="button" type="button" value="Add" ng-click="getWeather()">
             </form>
         </div>
-        <div class="card">
-            <div class="image"></div>
-            <div class="info">
-                <div class="temperature">{{ locationTemperature }}</div>
-                <div class="name">{{ locationName }}</div>
-                <div class="description">{{ locationDescription }}</div>
-                <div class="close">×</div>
-            </div>
+        <div class="cards">
+            <weather-card location-object="loc" ng-repeat="loc in locationList.locations"></weather-card>
         </div>
     </div>
 </body>
