@@ -11,13 +11,13 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
     $scope.getWeather = function() {
         $scope.locationInput = $filter('lowercase')($scope.locationInput);
 
-        $http.get('http://api.openweathermap.org/data/2.5/weather?q=' + $scope.locationInput + '&appid=46a1409601ea84d005d756c1a93d3a75')
+        $http.get('http://api.openweathermap.org/data/2.5/weather?q=' + $scope.locationInput + '&units=metric&appid=46a1409601ea84d005d756c1a93d3a75')
             .success(function (result) {
 
                 $scope.locationInput = '';
                 $scope.locationResponse = angular.fromJson(result);
                 $scope.locationName = $scope.locationResponse.name;
-                $scope.locationTemperature = $filter('number')($scope.locationResponse.main.temp - 273.15, 0);
+                $scope.locationTemperature = $filter('number')($scope.locationResponse.main.temp, 0);
                 $scope.locationDescription = $scope.locationResponse.weather[0].description;
 
             })
