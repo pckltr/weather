@@ -19,13 +19,13 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
                 $scope.locationResponse = angular.fromJson(result);
 
                 $scope.loc = {
-                    temp: $filter('number')($scope.locationResponse.main.temp, 0),
+                    icon: $scope.locationResponse.weather[0].icon,
+                    desc: $scope.locationResponse.weather[0].main,
                     name: $scope.locationResponse.name,
-                    desc: $scope.locationResponse.weather[0].description
+                    temp: $filter('number')($scope.locationResponse.main.temp, 0)
                 }
 
                 $scope.locationList.locations.push($scope.loc);
-                $log.log(angular.fromJson($scope.locationList));
 
             })
             .error(function(data, status) {
