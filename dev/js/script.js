@@ -20,7 +20,7 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
 
                 $scope.loc = {
                     icon: $scope.locationResponse.weather[0].icon,
-                    desc: $scope.locationResponse.weather[0].main,
+                    desc: $scope.locationResponse.weather[0].description,
                     name: $scope.locationResponse.name,
                     temp: $filter('number')($scope.locationResponse.main.temp, 0)
                 }

@@ -1,7 +1,9 @@
 @import 'fonts';
 $border-radius: 4px;
+$sky-day: #41D5FF;
+$sky-night: #256E96;
 body {
-    background: radial-gradient(#ECECEC, #ABABAB);
+    background: radial-gradient(#F7F5F5, #E0E0E0);
     font-size: 16px;
     margin: 0;
     height: 100vh;
@@ -77,78 +79,469 @@ body {
     border-radius: $border-radius;
     box-shadow: 1px 1px 9px 0px rgba(0, 0, 0, 0.2);
     .image {
-        height: 200px;
         border-top-left-radius: $border-radius;
         border-top-right-radius: $border-radius;
+        height: 200px;
         overflow: hidden;
         position: relative;
-        &.icon02d {
-            background: #96E8FF;
+        &.icon01 {
+            &d {
+                background: $sky-day;
+                .sun {
+                    display: block;
+                }
+            }
+            &n {
+                background: $sky-night;
+                .moon {
+                    display: block;
+                }
+            }
+        }
+        &.icon02 {
+            &d,
+            &n {
+                .cloud {
+                    display: block;
+                }
+            }
+            &d {
+                background: $sky-day;
+                .sun {
+                    display: block;
+                }
+            }
+            &n {
+                background: $sky-night;
+                .moon {
+                    display: block;
+                }
+            }
+        }
+        &.icon03 {
+            &d,
+            &n {
+                .cloud {
+                    display: block;
+                }
+            }
+            &d {
+                background: $sky-day;
+            }
+            &n {
+                background: $sky-night;
+            }
+        }
+        &.icon04 {
+            &d,
+            &n {
+                .cloud {
+                    display: block;
+                }
+                .cloud2 {
+                    display: block;
+                }
+            }
+            &d {
+                background: $sky-day;
+            }
+            &n {
+                background: $sky-night;
+            }
+        }
+        &.icon09 {
+            &d,
+            &n {
+                .cloud {
+                    display: block;
+                }
+                .cloud2 {
+                    display: block;
+                }
+                .rain {
+                    display: block;
+                }
+            }
+            &d {
+                background: $sky-day;
+            }
+            &n {
+                background: $sky-night;
+            }
+        }
+        &.icon10 {
+            &d,
+            &n {
+                .cloud {
+                    display: block;
+                }
+                .rain {
+                    display: block;
+                }
+            }
+            &d {
+                background: $sky-day;
+                .sun {
+                    display: block;
+                }
+            }
+            &n {
+                background: $sky-night;
+                .moon {
+                    display: block;
+                }
+            }
+        }
+        &.icon11 {
+            &d,
+            &n {
+                .cloud {
+                    display: block;
+                }
+                .cloud2 {
+                    display: block;
+                }
+                .rain {
+                    display: block;
+                }
+                .rain2 {
+                    display: none;
+                }
+                .thunder {
+                    display: block;
+                }
+            }
+            &d {
+                background: $sky-day;
+            }
+            &n {
+                background: $sky-night;
+            }
+        }
+        &.icon13 {
+            &d,
+            &n {
+                .cloud {
+                    display: block;
+                }
+                .cloud2 {
+                    display: block;
+                }
+                .snow {
+                    display: block;
+                }
+            }
+            &d {
+                background: $sky-day;
+            }
+            &n {
+                background: $sky-night;
+            }
+        }
+        &.icon50 {
+            &d,
+            &n {
+                .mist {
+                    display: block;
+                }
+            }
+            &d {
+                background: $sky-day;
+            }
+            &n {
+                background: $sky-night;
+            }
+        }
+        .cloud {
+            background: #ffffff;
+            border-top-left-radius: 100px;
+            border-top-right-radius: 100px;
+            display: none;
+            height: 80px;
+            position: absolute;
+            right: 90px;
+            top: 20px;
+            width: 160px;
+            z-index: 1;
             &:after {
+                background: #ffffff;
+                border-top-left-radius: 100px;
+                border-top-right-radius: 100px;
+                bottom: 0px;
                 content: '';
-                background: rgb(255, 255, 255);
-                border-radius: 50px;
-                width: 100%;
-                height: 100px;
+                height: 50px;
                 position: absolute;
-                top: -20px;
-                left: -40px;
+                right: -40px;
+                width: 100px;
+            }
+        }
+        .cloud2 {
+            background: #A0EAFF;
+            border-top-left-radius: 100px;
+            border-top-right-radius: 100px;
+            display: none;
+            height: 80px;
+            position: absolute;
+            right: 20px;
+            top: -20px;
+            width: 160px;
+            z-index: 0;
+            &:after {
+                background: #A0EAFF;
+                border-top-left-radius: 100px;
+                border-top-right-radius: 100px;
+                bottom: 0px;
+                content: '';
+                height: 50px;
+                position: absolute;
+                right: -40px;
+                width: 100px;
+            }
+        }
+        .moon {
+            background: #FFF9CE;
+            border-radius: 100%;
+            box-shadow: 0 0 20px 3px rgb(166, 212, 228);
+            content: '';
+            height: 80px;
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            width: 80px;
+            display: none;
+        }
+        .rain {
+            display: none;
+            &:after {
+                background: #ffffff;
+                border-radius: 10px;
+                height: 20px;
+                position: absolute;
+                right: 210px;
+                top: 160px;
+                width: 4px;
+                content: '';
+                transform: rotate(20deg);
             }
             &:before {
+                background: rgba(255, 255, 255, 0.5);
+                border-radius: 10px;
+                height: 20px;
+                position: absolute;
+                right: 210px;
+                top: 110px;
+                width: 4px;
                 content: '';
-                background: #FFE416;
+                transform: rotate(20deg);
+            }
+        }
+        .rain2 {
+            &:after {
+                background: #ffffff;
+                border-radius: 10px;
+                height: 20px;
+                position: absolute;
+                right: 180px;
+                top: 120px;
+                width: 4px;
+                content: '';
+                transform: rotate(20deg);
+            }
+            &:before {
+                background: rgba(255, 255, 255, 0.5);
+                border-radius: 10px;
+                height: 20px;
+                position: absolute;
+                right: 170px;
+                top: 150px;
+                width: 4px;
+                content: '';
+                transform: rotate(20deg);
+            }
+        }
+        .rain3 {
+            &:after {
+                background: #ffffff;
+                border-radius: 10px;
+                height: 20px;
+                position: absolute;
+                right: 80px;
+                top: 120px;
+                width: 4px;
+                content: '';
+                transform: rotate(20deg);
+            }
+            &:before {
+                background: rgba(255, 255, 255, 0.5);
+                border-radius: 10px;
+                height: 20px;
+                position: absolute;
+                right: 130px;
+                top: 110px;
+                width: 4px;
+                content: '';
+                transform: rotate(20deg);
+            }
+        }
+        .snow {
+            display: none;
+            &:after {
+                background: #ffffff;
+                border-radius: 10px;
+                height: 10px;
+                position: absolute;
+                right: 180px;
+                top: 120px;
+                width: 10px;
+                content: '';
+            }
+            &:before {
+                background: rgba(255, 255, 255, 0.5);
+                border-radius: 10px;
+                height: 5px;
+                position: absolute;
+                right: 210px;
+                top: 110px;
+                width: 5px;
+                content: '';
+            }
+        }
+        .snow2 {
+            &:after {
+                background: #ffffff;
+                border-radius: 10px;
+                height: 10px;
+                position: absolute;
+                right: 210px;
+                top: 160px;
+                width: 10px;
+                content: '';
+            }
+            &:before {
+                background: rgba(255, 255, 255, 0.5);
+                border-radius: 10px;
+                height: 5px;
+                position: absolute;
+                right: 170px;
+                top: 150px;
+                width: 5px;
+                content: '';
+            }
+        }
+        .snow3 {
+            &:after {
+                background: #ffffff;
+                border-radius: 10px;
+                height: 10px;
+                position: absolute;
+                right: 80px;
+                top: 120px;
+                width: 10px;
+                content: '';
+            }
+            &:before {
+                background: rgba(255, 255, 255, 0.5);
+                border-radius: 10px;
+                height: 5px;
+                position: absolute;
+                right: 130px;
+                top: 110px;
+                width: 5px;
+                content: '';
+            }
+        }
+        .sun {
+            background: #FFF392;
+            border-radius: 100%;
+            display: none;
+            height: 160px;
+            position: absolute;
+            right: -50px;
+            top: -50px;
+            width: 160px;
+            &:after {
+                background: #FFE100;
                 border-radius: 100%;
-                width: 150px;
-                height: 150px;
+                box-shadow: 0 0 20px 3px #FFA500;
+                content: '';
+                height: 80px;
                 position: absolute;
-                top: -50px;
-                right: -50px;
+                right: 40px;
+                top: 40px;
+                width: 80px;
             }
         }
-        &.icon04d {
-            background: #96E8FF;
+        .stars {
             &:after {
-                content: '';
                 background: #ffffff;
-                border-radius: 50px;
-                width: 100%;
-                height: 100px;
+                border-radius: 2px;
+                height: 2px;
                 position: absolute;
-                top: -30px;
-                right: -80px;
+                right: 105px;
+                top: 45px;
+                width: 2px;
+                content: '';
             }
             &:before {
-                content: '';
                 background: rgba(255, 255, 255, 0.5);
-                border-radius: 80px;
-                width: 100%;
-                height: 100px;
+                border-radius: 2px;
+                height: 2px;
                 position: absolute;
-                top: 10px;
-                right: -140px;
+                right: 150px;
+                top: 30px;
+                width: 2px;
+                content: '';
             }
         }
-        &.icon09d {
-            background: #96E8FF;
+        .stars2 {
             &:after {
-                content: '';
                 background: #ffffff;
-                border-radius: 50px;
-                width: 100%;
-                height: 100px;
+                border-radius: 2px;
+                height: 2px;
                 position: absolute;
-                top: -30px;
-                right: -80px;
+                right: 170px;
+                top: 60px;
+                width: 2px;
+                content: '';
             }
             &:before {
-                content: '';
                 background: rgba(255, 255, 255, 0.5);
-                border-radius: 80px;
-                width: 100%;
-                height: 100px;
+                border-radius: 2px;
+                height: 2px;
                 position: absolute;
-                top: 10px;
-                right: -140px;
+                right: 210px;
+                top: 50px;
+                width: 2px;
+                content: '';
+            }
+        }
+        .thunder {
+            display: none;
+            &:after {
+                border-bottom: 35px solid #ffffff;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-top: 0px solid transparent;
+                content: '';
+                height: 1px;
+                position: absolute;
+                right: 170px;
+                top: 115px;
+                transform: rotate(20deg);
+                width: 1px;
+            }
+            &:before {
+                border-bottom: 0 solid transparent;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-top: 35px solid #ffffff;
+                height: 1px;
+                position: absolute;
+                right: 170px;
+                top: 140px;
+                width: 1px;
+                content: '';
+                transform: rotate(20deg);
             }
         }
     }
@@ -158,7 +551,7 @@ body {
     .temperature {
         background: #FFFFFF;
         border-radius: 50%;
-        box-shadow: 1px 1px 11px 0 rgba(0,0,0,0.2);
+        box-shadow: 1px 1px 11px 0 rgba(0, 0, 0, 0.2);
         color: #5D5D5D;
         font-size: 35px;
         height: 100px;
@@ -169,11 +562,11 @@ body {
         text-align: center;
         width: 100px;
         &:after {
-            content: '°';
-            position: absolute;
-            font-size: 30px;
-            top: -4px;
             color: #B7B7B7;
+            content: '°';
+            font-size: 30px;
+            position: absolute;
+            top: -4px;
         }
     }
     .name {
