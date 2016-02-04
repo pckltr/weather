@@ -10,9 +10,9 @@
 <body>
     <div class="content" ng-controller="weatherController" ng-cloak>
         <div class="search">
-            <form class="form" ng-submit="getWeather()">
+            <form class="form" ng-submit="getWeather(locationInput)">
                 <input class="input" type="text" placeholder="City name" ng-model="locationInput">
-                <input class="button" type="button" value="+" ng-click="getWeather()">
+                <input class="button" type="submit" value="+">
             </form>
         </div>
         <div class="cards">
