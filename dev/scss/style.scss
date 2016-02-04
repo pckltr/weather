@@ -1,5 +1,5 @@
 @import 'fonts';
-$border-radius: 4px;
+$border-radius: 8px;
 $sky-day: #41D5FF;
 $sky-night: #256E96;
 body {
@@ -24,51 +24,55 @@ body {
 .search {
     margin: 40px auto 20px auto;
     width: 300px;
-    box-shadow: 1px 1px 9px 0px rgba(0, 0, 0, 0.2);
     border-radius: $border-radius;
-    .input {
-        border-bottom-left-radius: $border-radius;
-        border-top-left-radius: $border-radius;
-        border: none;
-        box-sizing: border-box;
-        float: left;
-        max-width: 220px;
-        padding: 0 16px;
+    .form {
         position: relative;
-        width: 100%;
+        margin: 0;
+        padding: 10px;
+    }
+    .input {
+        border-radius: $border-radius;
+        border: none;
+        box-shadow: 0 0 9px 0px rgba(0, 0, 0, 0.2);
+        box-sizing: border-box;
         font-size: 16px;
         line-height: 50px;
+        margin-right: 10px;
+        padding: 0 16px;
+        position: relative;
+        transition: all 0.5s ease-out;
+        width: 100%;
     }
     .button {
-        background: radial-gradient(#53BDEC, #149CDD);
-        border-bottom-right-radius: $border-radius;
-        border-top-right-radius: $border-radius;
+        background: #149CDD;
+        border-radius: 50px;
         border: none;
+        box-shadow: 0 0 9px 0px rgba(0, 0, 0, 0.2);
         box-sizing: border-box;
         color: #F1F1F1;
-        float: left;
+        font-size: 32px;
         font-weight: 600;
-        padding: 0 16px;
+        line-height: 50px;
+        padding: 0;
         position: relative;
         text-transform: uppercase;
-        width: 80px;
-        font-size: 16px;
-        line-height: 50px;
-        transition: all 0.5s;
+        transition: all 0.5s ease-out;
+        position: absolute;
+        right: -50px;
+        width: 50px;
+        margin-top: -25px;
+        top: 50%;
         &:hover {
+            background: #2DA9E4;
             cursor: pointer;
-            background-color: #C7C7C7;
         }
-    }
-    .form {
-        overflow: hidden;
-        margin: 0;
     }
 }
 
 .cards {
     overflow: hidden;
     padding: 20px 0;
+    box-sizing: border-box;
 }
 
 .card {

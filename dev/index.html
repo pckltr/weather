@@ -11,8 +11,8 @@
     <div class="content" ng-controller="weatherController" ng-cloak>
         <div class="search">
             <form class="form" ng-submit="getWeather()">
-                <input class="input" type="text" ng-model="locationInput">
-                <input class="button" type="button" value="Add" ng-click="getWeather()">
+                <input class="input" type="text" placeholder="City name" ng-model="locationInput">
+                <input class="button" type="button" value="+" ng-click="getWeather()">
             </form>
         </div>
         <div class="cards">
