@@ -1,6 +1,6 @@
 var weatherApp = angular.module('weatherApp', []);
 
-weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log', function($scope, $http, $filter, $log) {
+weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log', '$location', function($scope, $http, $filter, $log, $location) {
 
     $scope.locationInput = '';
     $scope.locationResponse = '';
@@ -8,6 +8,7 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
     $scope.locations = []
     $scope.locationList.locations = $scope.locations;
     $scope.loc = {};
+    $location.url('/');
 
     $scope.getWeather = function() {
         $scope.locationInput = $filter('lowercase')($scope.locationInput);
@@ -20,13 +21,30 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
 
                 $scope.loc = {
                     country: $scope.locationResponse.sys.country,
-                    icon: $scope.locationResponse.weather[0].icon,
                     desc: $scope.locationResponse.weather[0].description,
+                    icon: $scope.locationResponse.weather[0].icon,
+                    id: $scope.locationResponse.id,
                     name: $scope.locationResponse.name,
                     temp: $filter('number')($scope.locationResponse.main.temp, 0)
                 }
 
-                $scope.locationList.locations.push($scope.loc);
+                $scope.urlLocation = $location.url();
+
+                if ($scope.locationList.locations.length < 3) {
+                    if ($scope.locationList.locations.length === 0) {
+                        $scope.locationList.locations.push($scope.loc);
+                        $location.url($scope.urlLocation + $filter('lowercase')($scope.locationList.locations[$scope.locationList.locations.length - 1].id));
+                    } else {
+                        $scope.locationList.locations.push($scope.loc);
+                        $location.url($scope.urlLocation + ',' + $filter('lowercase')($scope.locationList.locations[$scope.locationList.locations.length - 1].id));
+                    }
+                } else {
+                    $scope.locationList.locations.shift();
+                    $scope.locationList.locations.push($scope.loc);
+                    $scope.urlLocationArray = $scope.urlLocation.split(',');
+                    $scope.urlLocationArray.shift();
+                    $location.url($scope.urlLocationArray.join(',') + ',' + $filter('lowercase')($scope.locationList.locations[$scope.locationList.locations.length - 1].id));
+                }
 
             })
             .error(function(data, status) {
