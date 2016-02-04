@@ -63,53 +63,40 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
 
         $scope.inputVar = $filter('lowercase')(inputText);
 
-        $log.log(2, $scope.inputVar, $scope.inputVar.length);
+        $http.get('http://api.openweathermap.org/data/2.5/weather?' + (isNaN($scope.inputVar) ? 'q=' + $scope.inputVar : 'id=' + $scope.inputVar) + '&units=metric&appid=46a1409601ea84d005d756c1a93d3a75')
+            .then(function(response) {
 
+                $scope.locationInput = '';
+                $scope.locationResponse = angular.fromJson(response.data);
+                $scope.addCards($scope.locationResponse);
 
-        $http.get('http://api.openweathermap.org/data/2.5/weather?' + (isNaN($scope.inputVar) ? 'q=' + $scope.inputVar :  'id=' + $scope.inputVar) + '&units=metric&appid=46a1409601ea84d005d756c1a93d3a75')
+                if (!$scope.idsInUrl) {
+                    $scope.addIdsInUrl();
+                }
 
-        .success(function(result) {
+            }, function(response) {
 
+                $log.log(response.data, "Max 60 calls per minute, max 50000 calls per day.");
 
+            });
 
-        $log.log(2, result, result.length);
-
-            $scope.locationInput = '';
-            $scope.locationResponse = angular.fromJson(result);
-            $scope.addCards($scope.locationResponse);
-
-            if (!$scope.idsInUrl) {
-                $scope.addIdsInUrl();
-            }
-
-        })
-
-        .error(function(data, status) {
-
-            $log.log(data, status, "Max 60 calls per minute, max 50000 calls per day.");
-
-        });
     }
 
-    $scope.addCardsFromUrl = function(array) {
+    // $scope.addCardsFromUrl = function(array) {
 
-        $log.log('outside', array, array.length);
+    //     if (array.length !== 0) {
 
-        if (array.length !== 0) {
+    //         $scope.idsInUrl = true;
 
-            $scope.idsInUrl = true;
+    //         for (var i = 0; i < array.length; i++) {
+    //             $scope.getWeather(array[i]);
+    //         }
 
-            for (var i = 0; i < array.length; i++) {
+    //         $scope.idsInUrl = false;
+    //     }
+    // }
 
-                $log.log(1, array[i], array[i].length);
-                $scope.getWeather(array[i]);
-            }
-
-            $scope.idsInUrl = false;
-        }
-    }
-
-    angular.element(document).ready($scope.addCardsFromUrl($scope.urlLocationArray));
+    // angular.element(document).ready($scope.addCardsFromUrl($scope.urlLocationArray));
 
 
 }]);
