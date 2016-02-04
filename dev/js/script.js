@@ -19,6 +19,7 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
                 $scope.locationResponse = angular.fromJson(result);
 
                 $scope.loc = {
+                    country: $scope.locationResponse.sys.country,
                     icon: $scope.locationResponse.weather[0].icon,
                     desc: $scope.locationResponse.weather[0].description,
                     name: $scope.locationResponse.name,
@@ -30,8 +31,7 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
             })
             .error(function(data, status) {
 
-                $scope.locationResponse = data;
-
+                $log.log(data, status, "Max 60 calls per minute, max 50000 calls per day.");
             });
     }
 

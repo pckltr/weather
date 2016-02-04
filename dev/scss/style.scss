@@ -547,6 +547,9 @@ body {
     }
     .info {
         padding: 20px;
+        height: 198px;
+        box-sizing: border-box;
+        position: relative;
     }
     .temperature {
         background: #FFFFFF;
@@ -585,10 +588,13 @@ body {
         height: 21px;
         line-height: 21px;
         width: 21px;
-        margin: 40px auto 0 auto;
         text-align: center;
         cursor: pointer;
         transition: all 0.5s;
+        bottom: 20px;
+        position: absolute;
+        left: 50%;
+        margin-left: -10.5px;
         &:hover {
             border: 1px solid #F00;
             color: #F00;
