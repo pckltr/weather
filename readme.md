@@ -10,7 +10,7 @@ npm install gulp -D
 Install Browser Sync locally
 npm install browser-sync -D
 
-npm install jshint gulp-jshint gulp-sass gulp-concat gulp-uglify gulp-rename -D
+npm install jshint gulp-jshint gulp-sass gulp-concat gulp-uglify gulp-rename del -D
 
 Initialize package.json
 npm init

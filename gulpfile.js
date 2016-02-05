@@ -4,6 +4,7 @@ var gulp = require("gulp");
 // Include plugins
 var browserSync = require("browser-sync").create();
 var concat = require("gulp-concat");
+var del = require('del');
 var jshint = require("gulp-jshint");
 var rename = require("gulp-rename");
 var sass = require("gulp-sass");
@@ -26,8 +27,8 @@ var distStyle = dist + "css/";
 var distDirectives = dist + "directives/";
 
 // Browser-sync server
-gulp.task("serve", ["directives", "fonts", "html", "images", "sass", "scripts"], function() {
-// gulp.task("serve", ["fonts", "html", "images", "lint", "sass", "scripts"], function() {
+gulp.task("serve", ["deleteDist", "directives", "fonts", "html", "images", "sass", "scripts"], function() {
+    // gulp.task("serve", ["fonts", "html", "images", "lint", "sass", "scripts"], function() {
 
     browserSync.init({
         server: dist
@@ -44,9 +45,14 @@ gulp.task("serve", ["directives", "fonts", "html", "images", "sass", "scripts"],
 });
 
 function handleError(err) {
-  console.log(err.toString());
-  this.emit('end');
+    console.log(err.toString());
+    this.emit('end');
 }
+
+// Delete dist
+gulp.task('deleteDist', function() {
+    return del.sync(dist);
+})
 
 // Copy directives
 gulp.task("directives", function() {
@@ -86,7 +92,9 @@ gulp.task("lint", function() {
 // Compile sass
 gulp.task("sass", function() {
     return gulp.src(devStyle)
-        .pipe(sass({outputStyle: 'compressed'})
+        .pipe(sass({
+                outputStyle: 'compressed'
+            })
             .on("error", handleError))
         .pipe(gulp.dest(distStyle))
         .pipe(browserSync.stream());
