@@ -9,6 +9,7 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
     $scope.locationResponse = '';
     $scope.locations = [];
     $scope.urlLocationArray = [];
+
     $scope.urlLocationWithoutSlash = $location.url().slice(1, $location.url().length);
 
     $scope.locationList.locations = $scope.locations;
@@ -23,6 +24,8 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
 
     $scope.addCards = function(response) {
 
+        $scope.locationLength = $scope.locationList.locations.length;
+
         $scope.loc = {
             country: response.sys.country,
             desc: response.weather[0].description,
@@ -32,8 +35,8 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
             temp: $filter('number')(response.main.temp, 0)
         }
 
-        if ($scope.locationList.locations.length < 3) {
-            if ($scope.locationList.locations.length === 0) {
+        if ($scope.locationLength < 3) {
+            if ($scope.locationLength === 0) {
                 $scope.locationList.locations.push($scope.loc);
             } else {
                 $scope.locationList.locations.push($scope.loc);
@@ -48,14 +51,25 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
 
         $scope.urlLocation = $location.url();
 
-        if ($scope.locationList.locations.length <= 3) {
-            if ($scope.locationList.locations.length === 1) {
+        $scope.urlLocationWithoutSlash = $location.url().slice(1, $location.url().length);
+
+        if ($scope.urlLocationWithoutSlash.length !== 0) {
+            $scope.urlLocationArray = $scope.urlLocationWithoutSlash.split(',');
+            $location.url('/');
+        } else {
+            $scope.urlLocationArray = [];
+            $location.url('/');
+        }
+
+        $scope.urlLocationArrayLength = $scope.urlLocationArray.length;
+
+        if ($scope.urlLocationArrayLength < 3) {
+            if ($scope.urlLocationArrayLength === 0) {
                 $location.url($scope.urlLocation + $filter('lowercase')($scope.locationList.locations[$scope.locationList.locations.length - 1].id));
             } else {
                 $location.url($scope.urlLocation + ',' + $filter('lowercase')($scope.locationList.locations[$scope.locationList.locations.length - 1].id));
             }
         } else {
-            $scope.urlLocationArray = $scope.urlLocation.split(',');
             $scope.urlLocationArray.shift();
             $location.url($scope.urlLocationArray.join(',') + ',' + $filter('lowercase')($scope.locationList.locations[$scope.locationList.locations.length - 1].id));
         }
@@ -91,7 +105,7 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
 
             $scope.idsInUrl = true;
 
-            for (var i = 0; i < array.length; i++) {
+            for (var i = 0; i < 3; i++) {
                 $scope.getWeather(array[i]);
             }
 
