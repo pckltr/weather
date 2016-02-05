@@ -2,21 +2,24 @@ var weatherApp = angular.module('weatherApp', []);
 
 weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log', '$location', function($scope, $http, $filter, $log, $location) {
 
-    $scope.locationInput = '';
-    $scope.locationResponse = '';
-    $scope.locationList = {};
-    $scope.locations = []
-    $scope.locationList.locations = $scope.locations;
+    $scope.idsInUrl = false;
     $scope.loc = {};
+    $scope.locationInput = '';
+    $scope.locationList = {};
+    $scope.locationResponse = '';
+    $scope.locations = [];
+    $scope.urlLocationArray = [];
     $scope.urlLocationWithoutSlash = $location.url().slice(1, $location.url().length);
+
+    $scope.locationList.locations = $scope.locations;
 
     if ($scope.urlLocationWithoutSlash.length !== 0) {
         $scope.urlLocationArray = $scope.urlLocationWithoutSlash.split(',');
+        $location.url('/');
     } else {
         $scope.urlLocationArray = [];
+        $location.url('/');
     }
-
-    $scope.idsInUrl = false;
 
     $scope.addCards = function(response) {
 
@@ -82,21 +85,21 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
 
     }
 
-    // $scope.addCardsFromUrl = function(array) {
+    $scope.addCardsFromUrl = function(array) {
 
-    //     if (array.length !== 0) {
+        if (array.length !== 0) {
 
-    //         $scope.idsInUrl = true;
+            $scope.idsInUrl = true;
 
-    //         for (var i = 0; i < array.length; i++) {
-    //             $scope.getWeather(array[i]);
-    //         }
+            for (var i = 0; i < array.length; i++) {
+                $scope.getWeather(array[i]);
+            }
 
-    //         $scope.idsInUrl = false;
-    //     }
-    // }
+            $scope.idsInUrl = false;
+        }
+    }
 
-    // angular.element(document).ready($scope.addCardsFromUrl($scope.urlLocationArray));
+    angular.element(document).ready($scope.addCardsFromUrl($scope.urlLocationArray));
 
 
 }]);
