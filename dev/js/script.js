@@ -110,7 +110,9 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
 
     $scope.getIdsFromUrl();
 
-    angular.element(document).ready($scope.addCardsFromUrl($scope.urlLocationArray));
+    angular.element(document).ready(function() {
+        $scope.addCardsFromUrl($scope.urlLocationArray);
+    });
 
 
 }]);
