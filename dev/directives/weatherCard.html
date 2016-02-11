@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" data-id="{{ locationObject.id }}">
     <div class="image {{ 'icon' + locationObject.icon }}">
         <div class="cloud"></div>
         <div class="cloud2"></div>
@@ -22,6 +22,6 @@
         <div class="temperature">{{ locationObject.temp }}</div>
         <div class="name">{{ locationObject.name + ", "+ locationObject.country }}</div>
         <div class="description">{{ locationObject.desc }}</div>
-        <div class="close">×</div>
+        <div class="close" ng-click="removeFunction({ aCardId: locationObject.id })">×</div>
     </div>
 </div>

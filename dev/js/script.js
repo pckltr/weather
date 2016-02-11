@@ -2,34 +2,37 @@ var weatherApp = angular.module('weatherApp', []);
 
 weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log', '$location', function($scope, $http, $filter, $log, $location) {
 
-    $scope.idsInUrl = false;
-    $scope.loc = {};
     $scope.locationInput = '';
     $scope.locationList = {};
-    $scope.locationResponse = '';
-    $scope.locations = [];
-    $scope.urlLocationArray = [];
+    var idsInUrl = false;
+    var loc = {};
+    var locationResponse = '';
+    var locations = [];
+    var cardLimit = 3;
+    var appId = "46a1409601ea84d005d756c1a93d3a75";
 
-    $scope.locationList.locations = $scope.locations;
+    $scope.locationList.locations = locations;
 
-    $scope.getIdsFromUrl = function() {
+    var getIdsFromUrl = function() {
 
-        $scope.urlLocationWithoutSlash = $location.url().slice(1, $location.url().length);
+        var urlLocationArray = [];
+        var urlLocationWithoutSlash = $location.url().slice(1, $location.url().length);
 
-        if ($scope.urlLocationWithoutSlash.length !== 0) {
-            $scope.urlLocationArray = $scope.urlLocationWithoutSlash.split(',');
-            $location.url('/');
+        if (urlLocationWithoutSlash.length !== 0) {
+            urlLocationArray = urlLocationWithoutSlash.split(',');
         } else {
-            $scope.urlLocationArray = [];
-            $location.url('/');
+            urlLocationArray = [];
         }
+
+        return urlLocationArray;
     }
 
-    $scope.addCards = function(response) {
+    var addCards = function(response) {
 
-        $scope.locationLength = $scope.locationList.locations.length;
+        var locationList = $scope.locationList.locations;
+        var locationListLength = locationList.length;
 
-        $scope.loc = {
+        loc = {
             country: response.sys.country,
             desc: response.weather[0].description,
             icon: response.weather[0].icon,
@@ -38,80 +41,105 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
             temp: $filter('number')(response.main.temp, 0)
         }
 
-        if ($scope.locationLength < 3) {
-            if ($scope.locationLength === 0) {
-                $scope.locationList.locations.push($scope.loc);
+        if (locationListLength < 3) {
+            if (locationListLength === 0) {
+                locationList.push(loc);
             } else {
-                $scope.locationList.locations.push($scope.loc);
+                locationList.push(loc);
             }
         } else {
-            $scope.locationList.locations.shift();
-            $scope.locationList.locations.push($scope.loc);
+            locationList.shift();
+            locationList.push(loc);
         }
+
+
     }
 
-    $scope.addIdsInUrl = function() {
+    var addIdsInUrl = function() {
 
-        $scope.urlLocation = $location.url();
+        var locationList = $scope.locationList.locations;
+        var locationListLength = locationList.length;
+        var locationUrlArray = getIdsFromUrl();
+        var locationUrlArrayLength = locationUrlArray.length;
+        var urlLocation = $location.url();
 
-        $scope.getIdsFromUrl();
-
-        $scope.urlLocationArrayLength = $scope.urlLocationArray.length;
-
-        if ($scope.urlLocationArrayLength < 3) {
-            if ($scope.urlLocationArrayLength === 0) {
-                $location.url($scope.urlLocation + $filter('lowercase')($scope.locationList.locations[$scope.locationList.locations.length - 1].id));
+        if (locationUrlArrayLength < cardLimit) {
+            if (locationUrlArrayLength === 0) {
+                $location.url(urlLocation + $filter('lowercase')(locationList[locationListLength - 1].id));
             } else {
-                $location.url($scope.urlLocation + ',' + $filter('lowercase')($scope.locationList.locations[$scope.locationList.locations.length - 1].id));
+                $location.url(urlLocation + ',' + $filter('lowercase')(locationList[locationListLength - 1].id));
             }
         } else {
-            $scope.urlLocationArray.shift();
-            $location.url($scope.urlLocationArray.join(',') + ',' + $filter('lowercase')($scope.locationList.locations[$scope.locationList.locations.length - 1].id));
+            locationUrlArray.shift();
+            $location.url(locationUrlArray.join(',') + ',' + $filter('lowercase')(locationList[locationListLength - 1].id));
+        }
+
+    }
+
+    $scope.removeCard = function(cardId) {
+
+        var locationList = $scope.locationList.locations;
+        var locationUrlArray = getIdsFromUrl();
+
+        for (var i = 0; i < locationList.length; i++) {
+
+            if (locationList[i].id === cardId) {
+
+                locationList.splice(i, 1);
+                locationUrlArray.splice(i, 1);
+
+                $scope.locationList.locations = locationList;
+                $location.url(locationUrlArray.join(','));
+
+            }
+
         }
 
     }
 
     $scope.getWeather = function(inputText) {
 
-        $scope.inputVar = $filter('lowercase')(inputText);
+        var inputVar = $filter('lowercase')(inputText);
 
-        $http.get('http://api.openweathermap.org/data/2.5/weather?' + (isNaN($scope.inputVar) ? 'q=' + $scope.inputVar : 'id=' + $scope.inputVar) + '&units=metric&appid=46a1409601ea84d005d756c1a93d3a75')
-            .then(function(response) {
+        if (inputVar !== undefined || inputVar !== '' || inputVar !== null) {
 
-                $scope.locationInput = '';
-                $scope.locationResponse = angular.fromJson(response.data);
-                $scope.addCards($scope.locationResponse);
+            $http.get('http://api.openweathermap.org/data/2.5/weather?' + (isNaN(inputVar) ? 'q=' + inputVar : 'id=' + inputVar) + '&units=metric&appid=' + appId)
+                .then(function(response) {
 
-                if (!$scope.idsInUrl) {
-                    $scope.addIdsInUrl();
-                }
+                    $scope.locationInput = '';
+                    locationResponse = angular.fromJson(response.data);
+                    addCards(locationResponse);
 
-            }, function(response) {
+                    if (!idsInUrl) {
+                        addIdsInUrl();
+                    }
 
-                $log.log(response.data, "Max 60 calls per minute, max 50000 calls per day.");
+                }, function(response) {
 
-            });
+                    $log.log(response.data, "Max 60 calls per minute, max 50000 calls per day.");
+
+                });
+
+        }
 
     }
 
-    $scope.addCardsFromUrl = function(array) {
+    var addCardsFromUrl = function(array) {
 
         if (array.length !== 0) {
 
-            $scope.idsInUrl = true;
+            idsInUrl = true;
 
-            for (var i = 0; i < 3; i++) {
+            for (var i = 0; i < cardLimit; i++) {
                 $scope.getWeather(array[i]);
             }
 
-            $scope.idsInUrl = false;
+            idsInUrl = false;
         }
     }
 
-    $scope.getIdsFromUrl();
-
     angular.element(document).ready(function() {
-        $scope.addCardsFromUrl($scope.urlLocationArray);
+        addCardsFromUrl(getIdsFromUrl());
     });
 
 
@@ -119,11 +147,12 @@ weatherApp.controller('weatherController', ['$scope', '$http', '$filter', '$log'
 
 weatherApp.directive("weatherCard", function() {
     return {
-        restrict: 'AECM',
+        restrict: 'E',
         templateUrl: '../directives/weatherCard.html',
         replace: true,
         scope: {
-            locationObject: "="
+            locationObject: "=",
+            removeFunction: "&"
         }
     }
 });

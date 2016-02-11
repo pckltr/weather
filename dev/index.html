@@ -16,7 +16,7 @@
             </form>
         </div>
         <div class="cards">
-            <weather-card location-object="loc" ng-repeat="loc in locationList.locations"></weather-card>
+            <weather-card location-object="loc" remove-function="removeCard(aCardId)" ng-repeat="loc in locationList.locations"></weather-card>
         </div>
     </div>
 </body>
