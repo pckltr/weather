@@ -1,0 +1,24 @@
+<html ng-app="weatherApp">
+
+<head>
+    <title>weather</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+</head>
+
+<body>
+    <div class="content" ng-controller="weatherController" ng-cloak>
+        <div class="search">
+            <form class="form" ng-submit="getWeather(locationInput)">
+                <input class="input" type="text" placeholder="City name" ng-model="locationInput">
+                <input class="button" type="submit" value="+">
+            </form>
+        </div>
+        <div class="cards">
+            <weather-card location-object="loc" remove-function="removeCard(aCardId)" ng-repeat="loc in locationList.locations"></weather-card>
+        </div>
+    </div>
+</body>
+
+</html>

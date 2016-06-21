@@ -1,1 +1,0 @@
-start cmd /k "cd D:\Work\weather && gulp"
